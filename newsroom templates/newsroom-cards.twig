@@ -1,0 +1,437 @@
+<section class="cards container tight-grid">
+	<div class="row">
+	  <!-- "sidebar" column -->
+	    <div class="light link-list panel panel-default">
+
+	      <!-- search -->
+	      <form class="search-form" role="search" method="get" id="searchform" action="/" >
+	         <!-- <label class="screen-reader-text" class='form-control' for="s">Search</label> -->
+	          <input type="text" value="" name="s" id="s" placeholder="Search News" />
+	          <input type="submit" value="Search" />
+	      </form><!-- /search -->
+
+
+	      <div class="panel-group" id="accordion">
+	        <div class="panel panel-default">
+		          <div class="panel-heading">
+		            <h4 class="panel-title">
+		              <span data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+		                Sort By
+		              </span>
+		            </h4>
+		          </div>
+		          <div id="collapseOne" class="panel-collapse collapse in">
+		            <ul class="panel-body nav panel-tabs" role="tablist">
+		              <li class="active"><a href="#editor-panel" role="tab" data-toggle="tab">Editors Picks</a></li>
+		              <li><a href="#pc-panel" role="tab" data-toggle="tab">Patient Care</a></li>
+		              <li><a href="#research-panel" role="tab" data-toggle="tab">Research</a></li>
+		              <li><a href="#education-panel" role="tab" data-toggle="tab">Education</a></li>
+		            </ul>
+		          </div>
+	        </div>
+	      </div>
+
+	    <!-- social links -->
+	      <div class='links social-links'>
+	        <a class='facebook' href="https://www.facebook.com/UNTHSC">UNTHSC on FaceBook</a>
+	        <a  class='twitter' href="https://twitter.com/UNTHSC">UNTHSC on Twitter</a>
+	        <a  class='youtube' href="https://www.youtube.com/user/UNTHSCNews">UNTHSC on Youtube</a>
+	        <a  class='instagram' href="http://instagram.com/unthsc">UNTHSC on Instagram</a>
+	      </div>
+
+	    </div><!-- end sidebar column -->
+		
+		
+<div class="tab-content">
+	<div class="tab-pane active" id="editor-panel">
+		<div class="row">
+		<!-- featured interactive card -->  
+		{% set card = cards[0] %}
+		<a href="{{ card.url }}" class='featured {{card.style}} card interactive-story'>
+			<picture>
+				<source srcset="{{ card.images.featured.src }}" media="(min-width: 1000px)">
+				<source srcset="{{ card.images.card.src }}" media="(min-width: 700px)">
+				<source srcset="{{ card.images.wide_card.src }}" media="(min-width: 500px)">
+				<img srcset="{{ card.images.wide_card.src }}" alt="">
+			</picture>
+			<div class="content">
+				<p class="school">{{ card.cat.name }}</p>
+				<h4>{{ card.title }}</h4>
+				<p class="snippet">{{card.excerpt|excerpt(30)}}</p>
+			</div>
+		</a>
+		<!-- end featured interactive -->
+		
+
+		
+		<div class="short feed card">
+				<div class="content">
+					<p class="section-latest-news">Latest News</p>
+					{% for new in thenews %}
+						<p><a href="{{ new.permalink }}">{{ new.title }}</a></p>
+					{% endfor %}
+				</div>
+		</div> <!-- /.card -->
+
+
+		<!-- rss news feed .card -->
+		<div class='short feed card'>
+			<div class="content">
+				<p class="section-media">Media Spotlight</p>
+				{% for rss in rssfeed %}
+					<p>{{ rss }}</p>
+				{% endfor %}
+			</div>
+		</div> <!-- end news card -->
+	
+		
+		<!-- twitter feed .card -->
+		<div class="tall flat twitter card">
+            	<div class="content">
+					<h4>Twitter</h4>
+					{% for tf in twitterfeed %}
+						<p>{{ tf }}</p><br />
+					{% endfor %}
+				  	</p>
+           	 	</div>
+      	 </div> <!-- twitter /.card -->
+
+		
+		<div class="tall cards">
+			<!-- .card --> 
+			 {% set first_card = cards[1] %}
+	         <a href="{{ card.url }}" class='card push-1'>
+	           <picture>
+	             <source srcset="{{ card.images.featured.src }}" media="(min-width: 1000px)">
+	             <source srcset="{{ card.images.card.src }}" media="(min-width: 700px)">
+	             <source srcset="{{ card.images.wide_card.src }}" media="(min-width: 500px)">
+	             <img srcset="{{ card.images.wide_card.src }}" alt="">
+	           </picture>
+	           <div class="content">
+	             <h4>{{ card.title }}</h4>
+	           </div>
+	         </a>
+			 
+			 
+
+
+			 {% set second_card = cards[2] %}
+	         <a href="{{ card.url }}" class='card push-1'>
+	           <picture>
+	             <source srcset="{{ card.images.featured.src }}" media="(min-width: 1000px)">
+	             <source srcset="{{ card.images.card.src }}" media="(min-width: 700px)">
+	             <source srcset="{{ card.images.wide_card.src }}" media="(min-width: 500px)">
+	             <img srcset="{{ card.images.wide_card.src }}" alt="">
+	           </picture>
+	           <div class="content">
+	             <h4>{{ card.title }}</h4>
+	           </div>
+	         </a>
+			</div> <!-- tall cards -->
+
+			 
+			 
+            <div class='tall flat facebook card push-1'>
+                <div class="content">
+				  <h4>Facebook</h4>
+				  {% for fb in fbfeed %}
+				  	<p>{{ fb }}</p><br />
+				  {% endfor %}
+                </div>
+            </div> <!-- /.card -->
+		</div>
+		<div class="row">
+			<div class="tall cards">
+		    {% set third_cards = [cards[3], cards[4]]  %}
+		    {% for card in third_cards %}
+		      {% block card_block %}
+		        <a href="{{ card.url }}" class='{{card.style}} card push-1'>
+		          <picture>
+		            <source srcset="{{ card.images.featured.src }}" media="(min-width: 1000px)">
+		            <source srcset="{{ card.images.card.src }}" media="(min-width: 700px)">
+		            <source srcset="{{ card.images.wide_card.src }}" media="(min-width: 500px)">
+		            <img srcset="{{ card.images.wide_card.src }}" alt="">
+		          </picture>
+		          <div class="content">
+		            <h4>{{ card.title }}</h4>
+		          </div>
+		        </a>
+		      {% endblock %}
+		    {% endfor %}
+			</div>
+		</div>
+	</div> <!-- editor panel -->
+
+
+
+
+
+
+	<div class="tab-pane" id="pc-panel">
+
+		{% for pcpanel in patientcare %}
+			
+			<div class="row news-story">
+				<div class="col-sm-2">
+					{% if pcpanel.thumb %}
+						<a href="#" class="image"><img src="{{ pcpanel.thumb }}" /></a>
+						{% else %}
+							<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+					{% endif %}
+				</div>
+				<div class="col-sm-8">
+					<div class="content">
+						<a href="{{ pc.url }}"><h4>{{ pcpanel.title }}</h4></a>
+						<p class="snippet">{{ pcpanel.exerpt }}</p>
+					</div> <!-- patient care -->
+				</div>
+
+			</div><!-- row news story -->
+		
+		{% endfor %}
+
+	</div><!-- pc panel -->
+
+
+
+
+
+
+	<div class="tab-pane" id="research-panel">
+
+		{% for rpanel in research %}
+			
+			<div class="row news-story">
+				<div class="col-sm-2">
+					{% if rpanel.thumb %}
+						<a href="#" class="image"><img src="{{ rpanel.thumb }}" /></a>
+						{% else %}
+							<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+					{% endif %}
+				</div>
+				<div class="col-sm-8">
+					<div class="content">
+						<a href="{{ r.url }}"><h4>{{ rpanel.title }}</h4></a>
+						<p class="snippet">{{ rpanel.exerpt }}</p>
+					</div> <!-- research -->
+				</div>
+
+			</div><!-- row news story -->
+		
+		{% endfor %}
+
+	</div><!-- research panel -->
+
+
+
+
+
+	<div class="tab-pane" id="education-panel">
+
+		{% for epanel in education %}
+			
+			<div class="row news-story">
+				<div class="col-sm-2">
+					{% if epanel.thumb %}
+						<a href="#" class="image"><img src="{{ epanel.thumb }}" /></a>
+						{% else %}
+							<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+					{% endif %}
+				</div>
+				<div class="col-sm-8">
+					<div class="content">
+						<a href="{{ e.url }}"><h4>{{ epanel.title }}</h4></a>
+						<p class="snippet">{{ epanel.exerpt }}</p>
+					</div> <!-- education -->
+				</div>
+
+			</div><!-- row news story -->
+		
+		{% endfor %}
+
+	</div><!-- education panel -->
+
+
+
+</div> <!-- end tab content -->
+
+		</div> <!-- row-->
+
+
+<!--        bottom news tabs          -->   
+    <div class="row">
+        <div class="col-md-3">
+          <!--placeholder-->
+        </div>
+		
+		<div class="col-md-9">
+			<div class="news-tabs">
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs " role="tablist">
+			  <li class="active"><a href="#home" role="tab" data-toggle="tab">Latest</a></li>
+			  <li><a href="#picks" role="tab" data-toggle="tab">Editors Picks</a></li>
+			  <li><a href="#news" role="tab" data-toggle="tab">In the News</a></li>
+			  <!--<li><a href="#popular" role="tab" data-toggle="tab">Popular</a></li>-->
+			</ul> <!-- end nav tabs -->
+			
+
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+
+	<!-- latest news -->
+	<div class="tab-pane active" id="home">
+		<div class="row news-story">
+			
+			{% if research[0] is defined %}
+				{% set firstr = research[0] %}
+					<div class="col-sm-2">
+						{% if firstr.thumb %}
+							<a href="#" class="image"><img src="{{ firstr.thumb }}" /></a>
+							{% else %}
+								<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+						{% endif %}
+					</div>
+					<div class="col-sm-8">
+						<div class="content research">
+							<span class="color-bar"></span>
+							<a href="{{ firstr.url }}"><h4>{{ firstr.title }}</h4></a>
+							<p class="snippet">{{ firstr.exerpt }}</p>
+						</div> <!-- patient care -->
+					</div>
+
+					<div class="col-sm-2 tags">
+						{% for rtag in firstr.tags %}
+							#{{ rtag }}<br>
+						{% endfor %}
+					</div>
+			
+			{% endif %}
+
+		</div> <!-- row news story -->
+
+
+
+		<div class="row news-story">
+
+			{% if education[0] is defined %}
+				{% set firste = education[0] %}
+					<div class="col-sm-2">
+						{% if firste.thumb %}
+							<a href="#" class="image"><img src="{{ firste.thumb }}" /></a>
+							{% else %}
+								<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+						{% endif %}
+					</div>
+					<div class="col-sm-8">
+						<div class="content education">
+							<span class="color-bar"></span>
+							<a href="{{ firste.url }}"><h4>{{ firste.title }}</h4></a>
+							<p class="snippet">{{ firste.exerpt }}</p>
+						</div> <!-- patient care -->
+					</div>
+
+					<div class="col-sm-2 tags">
+						{% for etag in firste.tags %}
+							#{{ etag }}<br>
+						{% endfor %}
+					</div>
+			
+			{% endif %}
+
+		</div> <!-- row news story -->
+
+
+
+		<div class="row news-story">
+			
+			{% if patientcare[0] is defined %}
+				{% set firstpc = patientcare[0] %}
+					<div class="col-sm-2">
+						{% if firstpc.thumb %}
+							<a href="#" class="image"><img src="{{ firstpc.thumb }}" /></a>
+							{% else %}
+								<a href="#" class="image"><img src="http://qa.untmed.org/wp-content/uploads/2014/07/hiDefCampus-150x150.jpg" /></a>
+						{% endif %}
+					</div>
+					<div class="col-sm-8">
+						<div class="content patient-care">
+							<span class="color-bar"></span>
+							<a href="{{ firstpc.url }}"><h4>{{ firstpc.title }}</h4></a>
+							<p class="snippet">{{ firstpc.exerpt }}</p>
+						</div> <!-- patient care -->
+					</div>
+
+					<div class="col-sm-2 tags">
+						{% for pctag in firstpc.tags %}
+							#{{ pctag }}<br>
+						{% endfor %}
+					</div>
+			
+			{% endif %}
+
+		</div><!-- row news story -->
+		
+	</div><!-- end latest tab -->
+	
+	
+	<!-- editors picks -->
+	<div class="tab-pane" id="picks">
+	
+		{% for ep in editor_pick %}
+			
+			<div class="row news-story">
+				<div class="col-sm-2">
+					<a href="#" class="image"><img src="{{ ep.thumb }}" /></a>
+				</div>
+				<div class="col-sm-8">
+					<div class="content">
+						<a href="{{ ep.url }}"><h4>{{ ep.title }}</h4></a>
+						<p class="snippet">{{ ep.exerpt }}</p>
+					</div> <!-- patient care -->
+				</div>
+
+				<div class="col-sm-2 tags">
+					{% for eptag in ep.tags %}
+						#{{ eptag }}<br>
+					{% endfor %}
+				</div>
+			</div><!-- row news story -->
+		
+		{% endfor %}
+	
+	</div><!-- end editors picks tab -->
+
+
+
+
+
+	<div class="tab-pane" id="news">You've got news</div>
+	
+	
+	
+	
+	
+	<!-- popular tab -->
+	<div class="tab-pane" id="popular">
+		some popular things
+	
+	</div><!-- end popular tab -->
+	
+</div><!-- Tab panes -->
+
+
+
+
+
+
+
+			
+			</div> <!-- news tabs-->
+		</div><!-- col-md-9 -->
+	</div> <!-- bottom news row -->  
+
+
+</section> <!-- end article header -->

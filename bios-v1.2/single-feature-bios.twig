@@ -1,0 +1,37 @@
+<div class="container-fluid">
+	<div class="row bios_img">
+		<div class="col-xs-3 col-xs-offset-9 bios_quote" style="color:{{ bios_quote_color }}" />
+			{{ bios_quote }}
+		</div>
+		<div class="col-sm-12 col-xs-12">{{ bios_img }}</div>
+	</div><!--bios_img-->
+		
+	<div class="row bios_gray">
+		<div class="col-sm-8 col-xs-12">
+			<h2>{{ bios_name }}</h2><br />
+			{{ bios_titles }}<br />
+		</div>
+		<div class="col-sm-4 col-xs-12 bios_gray_red">
+			For an appointment: <strong>817-0735-DOCS (3627)</strong><br />
+			{{ bios_department }}<br />
+			{{ bios_fphone }}<br />
+			{{ bios_email }}<br />			
+		</div>
+	</div><!--bios_gray-->
+
+
+<div class="row bios_content">
+	<div class="col-sm-6 col-xs-12 bios_white_left">
+		<strong>Clinical specialty:</strong> <i>{{ bios_spec }}</i><br /><br />
+		<strong>Research interests:</strong> <i>{{ bios_research_interests }}</i><br /><br />
+		{{ bios_biography }}
+	</div>
+
+	<div class="col-sm-6 col-xs-12 bios_white_right">
+		<strong>Academic:</strong><br />
+		{{ bios_academics }}<br /><br />
+		<strong>Honors:</strong><br />
+		{{ bios_honors }}<br />
+	</div>	
+</div><!--bios_content-->
+</div><!--container-->

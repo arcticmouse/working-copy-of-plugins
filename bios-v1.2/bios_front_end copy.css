@@ -1,0 +1,66 @@
+
+.bios_breadcrumbs {
+    font-size: 0.3em !important;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+#content {
+    background-color: #ffffff;
+    margin-bottom: -3em;
+    margin-top: -3em;
+}
+.bios_profile {
+    float: right;
+    margin: 1em 10% 0 0;
+    width: 60%;
+}
+.bios_thumb {
+    height: 18em;
+    position: relative;
+    width: 100%;
+}
+.bios_quote {
+    float: right;
+    margin: -15em 31em 0;
+    position: absolute;
+    width: 25%;
+}
+.bios_name_and_spec {
+    background-color: #e5e5e5;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0.75em;
+    width: 100%;
+}
+.bios_titles {
+    float: left;
+    width: 65%;
+}
+.bios_titles strong {
+    clear: both;
+    font-size: 1.4em;
+    line-height: 2em;
+}
+.bios_contact {
+    background-color: #c0392b;
+    color: #ffffff;
+    float: right;
+    font-size: 0.75em;
+    padding: 0.5em;
+    width: 30%;
+}
+.bios_big_text {
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0.75em;
+    width: 100%;
+}
+.bios_left {
+    float: left;
+    width: 45%;
+}
+.bios_right {
+    float: right;
+    width: 45%;
+}

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<div class="row bios_img">
+		<div class="col-sm-12 col-xs-12">
+			<img src="{{ abios.thumbnail.src }}" alt="{{ abios.post_title }}" />
+		</div>
+		<div class="col-xs-3 col-xs-offset-9 bios_quote" style="color:{{ abios._cmbi_quote_color }}" />
+			<strong>"{{ abios._cmbi_quote }}"</strong><br />
+			-{{ bios_name }}
+		</div>
+	</div><!--bios_img-->
+		
+	<div class="row bios_gray">
+		<div class="col-sm-8 col-xs-12">
+			<h2>{{ bios_name }}</h2><br />
+			{{ abios._cmbi_titles }}<br />
+		</div>
+		<div class="col-sm-4 col-xs-12 bios_gray_red">
+			For an appointment: <strong>817-0735-DOCS (3627)</strong><br />
+			{{ abios._cmbi_department }}<br />
+			{{ abios._cmbi_fphone }}<br />
+			{{ abios._cmbi_email }}<br />			
+		</div>
+	</div><!--bios_gray-->
+
+
+<div class="row bios_content">
+	<div class="col-sm-6 col-xs-12 bios_white_left">
+		<strong>Clinical specialty:</strong> <i>{{ bios_spec }}</i><br /><br />
+		<strong>Research interests:</strong> <i>{{ abios._cmbi_research_interests }}</i><br /><br />
+		{{ abios._cmbi_biography }}
+	</div>
+
+	<div class="col-sm-6 col-xs-12 bios_white_right">
+		<strong>Academic:</strong><br />
+		{{ abios._cmbi_academics }}<br /><br />
+		<strong>Honors:</strong><br />
+		{{ abios._cmbi_honors }}<br />
+	</div>	
+</div><!--bios_content-->
+</div><!--container-->

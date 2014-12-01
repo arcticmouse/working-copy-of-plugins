@@ -1,0 +1,14 @@
+#postimagediv, #formatdiv {
+    float: left;
+    height: auto;
+    width: 45%;
+}
+#front_page_news tr {
+    float: left;
+    margin: 1%;
+    padding: 1%;
+    width: 45%;
+}
+#pp_enable_type {
+	clear: both;
+}
