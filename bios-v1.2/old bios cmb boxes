@@ -1,0 +1,198 @@
+/**
+*
+*register CPT metaboxes
+*
+*https://github.com/WebDevStudios/Custom-Metaboxes-and-Fields-for-WordPress
+**/
+
+add_filter( 'cmb_meta_boxes', 'bios_info_metaboxes' );
+
+function bios_info_metaboxes( $meta_boxes ) {
+	$prefix = '_cmbi_';
+	$meta_boxes['bios_info'] = array(
+		'id' => 'bios_info',
+		'title' => 'Personal Information',
+		'pages' => array('bios'),
+		'context' => 'normal',
+		'priority' => 'high',
+		'show_names' => true,
+		'fields' => array(
+			array(
+				'name' => 'First Name',
+				'id' => $prefix.'fname',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Physician',
+				'id' => $prefix.'emp_type_physician',
+				'type' => 'checkbox',
+				),
+			array(
+				'name' => 'Faculty',
+				'id' => $prefix.'emp_type_faculty',
+				'type' => 'checkbox',
+				),
+			array(
+				'name' => 'Staff',
+				'id' => $prefix.'emp_type_staff',
+				'type' => 'checkbox',
+				),
+			array(
+				'name' => 'Featured Bio',
+				'id' => $prefix.'featured',
+				'type' => 'checkbox'
+				),			
+			array(
+				'name' => 'Work Email',
+				'id' => $prefix.'email',
+				'type' => 'text_email'
+				),
+			array(
+				'name' => 'Office Phone',
+				'id' => $prefix.'fphone',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Office Fax',
+				'id' => $prefix.'fax',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Office Number and Building',
+				'id' => $prefix.'room',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Department',
+				'id' => $prefix.'department',
+				'type' => 'text'
+				)
+			)
+		);
+
+	$meta_boxes['bios_bio'] = array(
+		'id' => 'bios_bio',
+		'title' => 'Biographical Information',
+		'pages' => array('bios'),
+		'context' => 'normal',
+		'priority' => 'high',
+		'show_names' => true,
+		'fields' => array(
+			array(
+				'name' => 'Non-Medical Degrees',
+				'id' => $prefix.'non_med_degree',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Medical Degrees',
+				'id' => $prefix.'med_degree',
+				'taxonomy' => 'med_degree',
+				'type' => 'taxonomy_multicheck'
+				),
+			array(
+				'name' => 'Profile ID # on Profile System',
+				'id' => $prefix.'eis',
+				'type' => 'text'
+				),	
+			array(
+				'name' => 'Job Titles',
+				'id' => $prefix.'titles',
+				'type' => 'textarea'
+				),
+			array(
+				'name' => 'Quotation',
+				'id' => $prefix.'quote',
+				'type' => 'text'
+				),
+			array(
+				'name' => 'Quotation Display Color',
+				'id' => $prefix.'quote_color',
+				'desc' => 'Quote floats on right top corner of image. Please choose a cooresponding color that will be visible on the image.',
+				'type' => 'radio_inline', 
+				'options' => array( 'black' => __( 'Black Text', 'cmb' ), 'white' => __( 'White Text', 'cmb' ) )
+				),
+			array(
+				'name' => 'Biography',
+				'desc' => 'Enter formatted information',
+				'id' => $prefix.'biography',
+				'type' => 'textarea'
+				),
+			array(
+			    'name' => 'Research Interests',
+			    'desc' => 'Enter formatted information',
+			    'id' => $prefix.'research_interests',
+			    'type' => 'textarea'
+				),
+			array(
+			    'name' => 'Academics',
+			    'desc' => 'Enter formatted information',
+			    'id' => $prefix.'academics',
+			    'type' => 'textarea'
+				),
+			array(
+			    'name' => 'Honors',
+			    'desc' => 'Enter formatted information',
+			    'id' => $prefix.'honors',
+			    'type' => 'textarea'
+				)
+			),
+		);
+		
+	$meta_boxes['bios_clinic'] = array(
+		'id' => 'bios_clinic',
+		'title' => 'Clinic Information',
+		'pages' => array('bios'),
+		'context' => 'normal',
+		'priority' => 'high',
+		'show_names' => true,
+		'fields' => array(
+			array(
+				'name' => 'Gender',
+				'id' => $prefix.'gender',
+				'type' => 'radio_inline',
+				'options' => array( 'Male' => __( 'Male', 'cmb' ), 'Female' => __( 'Female', 'cmb') )
+				),
+			array(
+				'name' => 'Languages',
+				'id' => $prefix.'language',
+				'taxonomy' => 'language',
+				'type' => 'taxonomy_multicheck'
+				),
+			array(
+				'name' => 'Specialties',
+				'id' => $prefix.'specialty',
+				'taxonomy' => 'specialty',
+				'type' => 'taxonomy_multicheck'
+				),
+			array(
+				'name' => 'Clinic Locations',
+				'id' => $prefix.'location',
+				'taxonomy' => 'location',
+				'type' => 'taxonomy_multicheck'
+				),
+			array(
+				'name' => 'Primary Clinic',
+				'id' => $prefix.'primary',
+				'desc' => 'Please choose one',
+				'taxonomy' => 'location',
+				'type' => 'taxonomy_select'
+				),
+			array(
+				'name' => 'Insurance Accepted',
+				'id' => $prefix.'insurance',
+				'taxonomy' => 'insurance',
+				'type' => 'taxonomy_multicheck'
+				),
+			),
+		);
+
+	return $meta_boxes;
+}
+
+add_action( 'init', 'bios_bio_init_cmb_meta_boxes' );
+
+function bios_bio_init_cmb_meta_boxes() {
+    if ( !class_exists( 'cmb_Meta_Box' ) ) {
+        require_once( 'cmb_metabox/init.php' );
+    }
+}
