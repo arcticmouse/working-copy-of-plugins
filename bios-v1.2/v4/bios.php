@@ -54,32 +54,40 @@ function set_custom_edit_bios_columns( $columns ) {
     $columns['_cmbi_emp_type_physician'] = __( 'Physician' );
     $columns['_cmbi_emp_type_faculty'] = __( 'Faculty' );
     $columns['_cmbi_emp_type_staff'] = __( 'Staff' );
-    $columns['_cmbi_featured'] = __( 'FeaturedBio' );
+    $columns['_cmbi_featured'] = __( 'Featured' );
 	$columns['date'] = __( 'Last Edit Date' );
 
     return $columns;
 }
 
 function custom_bios_column( $column, $post_id ) {
+
+	$emp_type_arr = get_post_meta( $post_id, '_cmbi_emp_type' , true );
+
     switch ( $column ) {
         case 'first_name' :
             echo get_post_meta( $post_id , '_cmbi_fname' , true ); 
             break;
 			
 	    case '_cmbi_emp_type_physician' :
-	        echo get_post_meta( $post_id, '_cmbi_emp_type_physician' , true );
+	        if ( in_array( 'physician', $emp_type_arr ) )
+	        	echo 'Physician';
             break;
 
 	    case '_cmbi_emp_type_faculty' :
-	        echo get_post_meta( $post_id, '_cmbi_emp_type_faculty' , true );
+	        if ( in_array( 'faculty', $emp_type_arr ) )
+	        	echo 'Faculty';
             break;
 
 	    case '_cmbi_emp_type_staff' :
-	        echo get_post_meta( $post_id, '_cmbi_emp_type_staff' , true );
+	        if ( in_array( 'staff', $emp_type_arr ) )
+	        	echo 'Staff';
             break;
 			
 		case '_cmbi_featured' :
-			echo get_post_meta( $post_id , '_cmbi_featured' , true );
+			$feat = get_post_meta( $post_id , '_cmbi_featured' , true );
+			if ( $feat == 1 ) 
+				echo '<strong>Featured</strong>';
 			break;
 			
     } //end switch
@@ -94,34 +102,15 @@ add_filter( 'manage_edit-bios_sortable_columns', 'bios_sort_columns' );
 add_action( 'pre_get_posts', 'my_slice_orderby' );
 
 function bios_sort_columns( $columns ) {
-	$columns['_cmbi_featured'] = __( 'FeaturedBio' );
-	$columns['_cmbi_emp_type_physician'] = __( 'Physician' );
-	$columns['_cmbi_emp_type_faculty'] = __( 'Faculty' );
-	$columns['_cmbi_emp_type_staff'] = __( 'Staff' );
+	$columns['_cmbi_featured'] = __( 'Featured' );
 	
 	return $columns;
 }
 
 function my_slice_orderby( $query ){
 	if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
-		switch( $orderby ) {
-			case 'FeaturedBio':
-				$query->set( 'meta_key', '_cmbi_featured' );
-				$query->set( 'orderby', 'meta_value' );
-				break;
-			case 'Physician':
-				$query->set( 'meta_key', '_cmbi_emp_type_physician' );
-				$query->set( 'orderby', 'meta_value' );
-				break;
-			case 'Faculty':
-				$query->set( 'meta_key', '_cmbi_emp_type_faculty' );
-				$query->set( 'orderby', 'meta_value' );
-				break;
-			case 'Staff':
-				$query->set( 'meta_key', '_cmbi_emp_type_staff' );
-				$query->set( 'orderby', 'meta_value' );
-				break;
-		} //end switch
+		$query->set( 'meta_key', '_cmbi_featured' );
+		$query->set( 'orderby', 'meta_value' );
 	} //end if
 }
 
