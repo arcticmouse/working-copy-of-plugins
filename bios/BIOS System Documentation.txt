@@ -1,0 +1,222 @@
+BIOS System Documentation
+
+1. What it does
+	1A. Dependencies
+	1B. Children
+		I. Plugins
+		II. Templates
+		III. File Directory Structure of BIOS plugin and it's children, and where files are called from/to
+2. Inputing data
+	2A. BIOS Information
+		I. Employee Type
+		II. Featured Biography
+		III. Work Email, Office Phone, Office Fax, Office number and building, Department
+		IV. Photograph 
+	2B. BIOS Biographical Information
+		I. Non-medical Degrees
+		II. Medical Degrees
+		III. EIS # on profile system
+		IV. Job Titles
+		V. Quotation, Quotation display color, Biography, Research Interests, Academics, Honors
+	2C. BIOS Clinical Information for Physicians
+		I. Gender
+		II. Languages, Specialties, Clinic Locations, Insurace Accepted
+		III. Primary Clinic Location
+	2D. Excerpt
+3. How the BIOS plugin works
+	3A. Run down of plugin code
+	3B. BIOS post type
+		I. Supports
+		II. Fields
+		III. Taxonomies
+4. How it is displayed
+	4A. Featured Profiles
+		I. Making a profile featured
+		II. Shared Featured Bios
+	4B. Directory
+	4C. Find a Physician
+
+************************************************************************
+************************************************************************
+************************************************************************
+************************************************************************
+
+
+
+
+
+************************************************************************
+1. What it does
+************************************************************************
+BIOS System is a plugin that stores information for all UNTHSC employees in one place. The BIOS are displayed across the website in three ways: as regular BIOS, featured BIOS, and as Physicians. Please see section 4 for more information on how BIOS are displayed.
+
+It is activated on Wordpress (WP) multisite 1.
+
+1A. Dependencies
+	The bios plugin is dependant on ACF - Advanced Custom Forms
+
+1B. Children
+	I. PLUGINS: Shared Featured Bios
+	II. TEMPLATES: 
+		Directory (titled with bios)
+		Featured (titled with featured bios)
+		Physician Search (titled with physician)
+	III. FILE DIRECTORY STRUCTURE OF BIOS PLUGIN AND IT'S CHILDREN, AND WHERE FILES ARE CALLED FROM/TO
+		\wp-content
+			\plugins
+				\bios-v1.2
+					bios system documentation.txt //this file
+					bios_front_end.css //display styling, called from bios.php
+					bios.css //admin styling, called from bios.php
+					bios.php //plugin file
+				\share_featured_bios.php
+					share_featured_bios.php //share featured bios plugin file
+			\themes
+				\hsc
+					\library
+						\css
+							physician-filter.css //physician filter styling, enqueued in functions.php
+						\js
+							physician-filter.js //physician filter styling through jQuery, enqueued in functions.php
+					\templates
+						physician-filter-language.php //filter physician by language section
+						physician-filter-name.php //filter physician by name section
+						physician-filter-specialty.php //filter physician by specialty section
+						physician-filter.php //filter physician main page
+						single-bios-template.php //template for a single bios from directory
+					\views
+						bios-search-results.twig //view for results of directory search
+						physician-name-filter.twig //view for filtering physicians by name
+						physician-search-results.twig //view for results of physician search
+						single-bios.twig //view for displaying a single non-featured bios
+						single-feature-bios.twig //view for displaying a single featured bios
+					archive-bios.php //display a list of bios for directory 
+					bios-search-page.php //search template for directory
+					physician-search.php //physician search template
+					search.php //a WP file that is heavily modified to add search functionality for directory and find a physician
+					searchbiosform.php //search form for directory
+					searchphysicianform.php //search form for physician
+					sidebar-physiciansearch.php //sidebar for physician search/filter
+					single-bios.php //single bios display for directory
+
+
+
+
+
+************************************************************************
+2. Inputing data
+************************************************************************
+2A. BIOS Information
+	I. EMPLOYEE TYPE: Employee information is stored in one place and each employee can have one or more types: Faculty, Staff, or Employee.
+
+	II. FEATURED BIOGRAPHY: If the employee is designated as a featured employee by the newsteam, checking the FEATURED BIOGRAPHY checkbox will allow it to be displayed with the featured biography template
+
+	III. WORK EMAIL, OFFICE PHONE, OFFICE FAX, OFFICE NUMBER AND BUILDING, DEPARTMENT: Imported through the EIS import. These can be changed but will be over written upon each import. Please direct employees to continue updating their information through EIS.
+
+	IV. PHOTOGRAPH: 
+
+2B. BIOS Biographical Information
+This is information that will display on the featured bios template only.
+
+	I. NON-MEDICAL DEGREES: Entered manually by news team. This will not update on EIS import.
+
+	II. MEDICAL DEGREES: Selected from select box. The select box is populated through a taxonomy, Medical Degrees. This taxonomy can be added to or modified by going to, on the admin Dashboard side menu, BIOS > MEDICAL DEGREES.
+
+	III. EIS # ON PROFILE SYSTEM: Imported through the EIS import. These can be changed but will be over written upon each import. Please direct employees to continue updating their information through EIS. Allows for a link to EIS profile.
+
+	IV. JOB TITLES: Imported through the EIS import. These can be changed but will be over written upon each import. Please direct employees to continue updating their information through EIS.
+
+	V. QUOTATION, QUOTATION DISPLAY COLOR, BIOGRAPHY, RESEARCH INTERESTS, ACADEMICS, HONORS: Entered manually by news team. This will not update on EIS import.
+
+	*** See also 2D. Excerpt
+
+2C. BIOS Clinical Informaiton for Physicians
+This information will be used for displaying and finding physicians
+
+	I. GENDER: Entered by news team.
+
+	II. LANGUAGES, SPECIALTIES, CLINIC LOCATIONS, INSURANCE ACCEPTED: Entered by news team through a taxonomy. If new entries need to be made, enter them by going to, on the admin Dashboard side menu, BIOS > *taxonomy name*
+
+	III. PRIMARY CLINIC LOCATION: Entered by news team through a taxonomy. Please select the physician's primary location here and also in the locations box.
+
+2D. Excerpt
+Entered by the news team for featured bios. This excerpt will show when a featured bios is made into a homepage card.
+
+
+
+
+
+************************************************************************
+3. How the BIOS Plugin Works
+************************************************************************
+The plugin is installed on WP multisite blog #1. 
+Input fields are created with the ACF (advanced custom fields) plugin
+
+3A. RUN DOWN OF PLUGIN CODE
+	A brief run down of what the code in the plugin does, in order:
+	Add stylesheets
+	Add admin columns of first name, physician, faculty, staff, featured
+	Make featured admin column sortable
+	Create BIOS post type
+	Change ENTER TITLE to ENTER bios Last Name
+	Create taxonomies:
+		Medical Degrees
+		Languages
+		Specialties
+		Insurance
+		Location
+	Add meta fields to Location taxonomy
+
+3B. BIOS Post Type
+	A custom post type (CPT).
+
+	I. SUPPORTS: title, bios, bios_text, thumbnail, excerpt, and custom_fields
+
+	II. FIELDS - see #2. INPUTTING DATA
+	   Fields are created with the ADVANCED CUSTOM FIELDS plugin
+
+	III. TAXONOMIES: 
+		med_degree: list of medical degrees for physicians
+		language: list of non-english languages spoken by physicians
+		specialties: list of physician specialties
+		insurance: list of insurance providers accepted by physicians
+		location: List of locations where UNTHSC has physicians. This taxonomy has several special meta terms, which are stored in the WP_database
+
+
+
+
+
+************************************************************************
+4. How it is displayed
+************************************************************************
+BIOS in the BIOS system are displayed in 3 ways: as a regular BIOS, a featured profile, and a physician.
+
+4A. Featured Profiles
+	Featured profiles are selected to be featured by the Marketing team. If a profile is featured, it will be displayed with the featured biography template, be available for display on homepage cards, and be available for sharing in a featured profile template across sites via the SHARED FEATURED BIOS plugin.
+
+	I. MAKING A PROFILE FEATURED: For a profile to be featured, the check box marked FEATURED BIOGRAPHY must be checked. This will allow the biography to be displayed in homepage cards and shared across subsites with the SHARED FEATURED BIOS plugin.
+
+	II. SHARED FEATURED BIOS: This plugin must be activated on each sub-site that needs to display a featured bios profile page.
+		After activating the plugin, see SETTINGS > FEATURED BIOGRAPHY. 
+		Here the user will be be able to choose the parent page for the featured biography, as well as whose biography to feature. 
+		More than one biography may be choosen for each homepage.
+
+4B. Directory
+	The employee directory is located on the main UNTHSC site. 
+
+	In order to display the directory, a page on the main site must be given the DIRECTORY template.
+
+4C. Find a Physician
+	The physician directory is located on the Patient Care site.
+
+	It's templates use the Wordpress function swith_to_blog() to display data from the main wordpress site which holds the BIOS.
+
+	It needs two pages: 1 for Search, and 1 for Directory. 
+
+	The Search page allows end users to search for physicians by last name, specialty, and location.
+
+	The Directory page allows end users to to index physicians by last name, language, and specialty.
+
+
+
+
