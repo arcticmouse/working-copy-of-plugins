@@ -106,6 +106,8 @@ It is activated on Wordpress (WP) multisite 1.
 ************************************************************************
 2. Inputing data
 ************************************************************************
+Certain information (first name, last name/bios title, job titles, email, phone, department, and eis number/link) are imported with a cron job from an RSS feed (http://intranet.hsc.unt.edu/applications/biofeed/).  
+
 2A. BIOS Information
 	I. EMPLOYEE TYPE: Employee information is stored in one place and each employee can have one or more types: Faculty, Staff, or Employee.
 
@@ -130,7 +132,7 @@ This is information that will display on the featured bios template only.
 
 	*** See also 2D. Excerpt
 
-2C. BIOS Clinical Informaiton for Physicians
+2C. BIOS Clinical Information for Physicians
 This information will be used for displaying and finding physicians
 
 	I. GENDER: Entered by news team.
@@ -180,7 +182,7 @@ Input fields are created with the ACF (advanced custom fields) plugin
 		language: list of non-english languages spoken by physicians
 		specialties: list of physician specialties
 		insurance: list of insurance providers accepted by physicians
-		location: List of locations where UNTHSC has physicians. This taxonomy has several special meta terms, which are stored in the WP_database
+		location: List of locations where UNTHSC has physicians. This taxonomy has several special meta terms, which are stored in the WP database in the wp_options table. The option_name is taxonomy_"# of the term id" (eg, taxonomy_12).
 
 
 
