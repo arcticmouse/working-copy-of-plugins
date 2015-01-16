@@ -1,0 +1,45 @@
+select ID, guid, post_type, post_title, blog_number
+from
+(
+(select distinct ID, guid, post_type, post_content, post_title, '11' as blog_number from wp_11_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '12' as blog_number from wp_12_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '13' as blog_number from wp_13_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '14' as blog_number from wp_14_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '16' as blog_number from wp_16_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '17' as blog_number from wp_17_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '20' as blog_number from wp_20_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '21' as blog_number from wp_21_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '22' as blog_number from wp_22_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '23' as blog_number from wp_23_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '24' as blog_number from wp_24_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '25' as blog_number from wp_25_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '26' as blog_number from wp_26_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '27' as blog_number from wp_27_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '28' as blog_number from wp_28_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '3' as blog_number from wp_3_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '6' as blog_number from wp_6_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '7' as blog_number from wp_7_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '8' as blog_number from wp_8_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '9' as blog_number from wp_9_posts where post_content like '%?page_id=%' and post_type like 'page')
+union all
+(select distinct ID, guid, post_type, post_content, post_title, '0' as blog_number from wp_posts where post_content like '%?page_id=%' and post_type like 'page')
+) as big_table
