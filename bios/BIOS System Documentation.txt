@@ -109,7 +109,7 @@ It is activated on Wordpress (WP) multisite 1.
 Certain information (first name, last name/bios title, job titles, email, phone, department, and eis number/link) are imported with a cron job from an RSS feed (http://intranet.hsc.unt.edu/applications/biofeed/).  
 
 2A. BIOS Information
-	I. EMPLOYEE TYPE: Employee information is stored in one place and each employee can have one or more types: Faculty, Staff, or Employee.
+	I. EMPLOYEE TYPE: Employee information is stored in one place and each employee can have one or more types: Faculty, Staff, or Physician. To add more types, edit the EMPLOYEE TYPE taxonomy. 
 
 	II. FEATURED BIOGRAPHY: If the employee is designated as a featured employee by the newsteam, checking the FEATURED BIOGRAPHY checkbox will allow it to be displayed with the featured biography template
 
@@ -162,6 +162,7 @@ Input fields are created with the ACF (advanced custom fields) plugin
 	Create BIOS post type
 	Change ENTER TITLE to ENTER bios Last Name
 	Create taxonomies:
+		Employee Type
 		Medical Degrees
 		Languages
 		Specialties
@@ -178,6 +179,7 @@ Input fields are created with the ACF (advanced custom fields) plugin
 	   Fields are created with the ADVANCED CUSTOM FIELDS plugin
 
 	III. TAXONOMIES: 
+		emp_type: list of employee types. this information is used in searchphysicianform.php, searchbiosform.php, search.php, physician-filter-language.php, physician-filter-name.php, physician-filter-specialty.php
 		med_degree: list of medical degrees for physicians
 		language: list of non-english languages spoken by physicians
 		specialties: list of physician specialties

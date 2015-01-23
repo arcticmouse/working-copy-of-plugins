@@ -51,9 +51,7 @@ function set_custom_edit_bios_columns( $columns ) {
 	
     $columns['title'] = __( 'Last Name' );
     $columns['first_name'] = __( 'First Name' );
-    $columns['_cmbi_emp_type_physician'] = __( 'Physician' );
-    $columns['_cmbi_emp_type_faculty'] = __( 'Faculty' );
-    $columns['_cmbi_emp_type_staff'] = __( 'Staff' );
+    $columns['emp_type'] = __( 'Employee Type' );
     $columns['_cmbi_featured'] = __( 'Featured' );
 	$columns['date'] = __( 'Last Edit Date' );
 
@@ -62,26 +60,18 @@ function set_custom_edit_bios_columns( $columns ) {
 
 function custom_bios_column( $column, $post_id ) {
 
-	$emp_type_arr = get_post_meta( $post_id, '_cmbi_emp_type' , true );
-
     switch ( $column ) {
         case 'first_name' :
             echo get_post_meta( $post_id , '_cmbi_fname' , true ); 
             break;
 			
-	    case '_cmbi_emp_type_physician' :
-	        if ( in_array( 'physician', $emp_type_arr ) )
-	        	echo 'Physician';
-            break;
-
-	    case '_cmbi_emp_type_faculty' :
-	        if ( in_array( 'faculty', $emp_type_arr ) )
-	        	echo 'Faculty';
-            break;
-
-	    case '_cmbi_emp_type_staff' :
-	        if ( in_array( 'staff', $emp_type_arr ) )
-	        	echo 'Staff';
+	    case 'emp_type' :
+	    	$emp_type_arr = wp_get_post_terms( $post_id, 'emp_type' );
+	    	if ( !empty($emp_type_arr) ) {
+				foreach ( $emp_type_arr as $e ){
+					echo $e->name . ' ';
+					}
+	    	}
             break;
 			
 		case '_cmbi_featured' :
@@ -99,7 +89,7 @@ function custom_bios_column( $column, $post_id ) {
 //sortable custom columns
 //soring: featured and employee types ( faculty, physician, staff )
 add_filter( 'manage_edit-bios_sortable_columns', 'bios_sort_columns' );
-add_action( 'pre_get_posts', 'my_slice_orderby' );
+//add_action( 'pre_get_posts', 'my_slice_orderby' );
 
 function bios_sort_columns( $columns ) {
 	$columns['_cmbi_featured'] = __( 'Featured' );
@@ -110,7 +100,7 @@ function bios_sort_columns( $columns ) {
 function my_slice_orderby( $query ){
 	if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
 		$query->set( 'meta_key', '_cmbi_featured' );
-		$query->set( 'orderby', 'meta_value' );
+		//$query->set( 'meta_value', 'orderby' );
 	} //end if
 }
 
@@ -174,7 +164,7 @@ function create_post_type_bios() {
 		'rewrite' => array('slug' => 'bios'),
 		'menu_position' => 5,
 		'supports' => array('title', 'bios', 'bios_text', 'thumbnail', 'excerpt', 'custom-fields'),
-		'taxonomies' => array('med_degree', 'language', 'specialty', 'insurance', 'location')
+		'taxonomies' => array('emp_type', 'med_degree', 'language', 'specialty', 'insurance', 'location')
 		);
 
 	register_post_type( 'bios', $args);
@@ -205,6 +195,61 @@ function custom_featured_image( $input ) {
 
     return $input;
 }
+
+
+
+
+
+/**
+*
+*register taxonomy emp_type
+*
+*author: leta
+*
+*http://codex.wordpress.org/Function_Reference/register_taxonomy
+**/
+
+/**the hook**/
+add_action( 'init', 'create_emp_type_taxonomy', 0 );
+
+/**the function**/
+function create_emp_type_taxonomy() {
+	$labels = array(
+		'name'                       => _x( 'Employee Type', 'taxonomy general name' ),
+		'singular_name'              => _x( 'Employee Type', 'taxonomy singular name' ),
+		'search_items'               => __( 'Search Employee Types' ),
+		'popular_items'              => __( 'Popular Employee Types' ),
+		'all_items'                  => __( 'All Employee Types' ),
+		'parent_item'                => null,
+		'parent_item_colon'          => null,
+		'edit_item'                  => __( 'Edit Employee Type' ),
+		'update_item'                => __( 'Update Employee Type' ),
+		'add_new_item'               => __( 'Add New Employee Type' ),
+		'new_item_name'              => __( 'New Employee Type Name' ),
+		'separate_items_with_commas' => __( 'Separate Employee Type with commas' ),
+		'add_or_remove_items'        => __( 'Add or remove Employee Types' ),
+		'choose_from_most_used'      => __( 'Choose from the most used Employee Type' ),
+		'not_found'                  => __( 'No Employee Type found.' ),
+		'menu_name'                  => __( 'Employee Types' ),
+	);
+
+	$args = array(
+		'hierarchical'          => false,
+		'labels'                => $labels,
+		//'show_ui'               => true,
+		'show_admin_column'     => false,
+		'show_tagcloud'			=> true,
+		'update_count_callback' => '_update_post_term_count',
+		'query_var'             => true,
+		'rewrite'               => array('slug' => 'Employee Types'),
+	);
+
+	register_taxonomy( 'emp_type', 'bios', $args );
+}
+
+
+
+
 
 
 /**
