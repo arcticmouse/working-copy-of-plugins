@@ -4,7 +4,7 @@
 * Plugin Name: importBios
 * Plugin URI:
 * Description: imports employee bios from EIS system in rss form
-* Version: 1.5
+* Version: 2
 * Author: Leta
 *
 ****************************************************************/
@@ -23,7 +23,7 @@ if ( !class_exists( 'WP_Importer' ) ) {
 		require_once $class_wp_importer;
 }
 
-
+register_activation_hook( __FILE__, 'wi_create_daily_import_feed_schedule' );
 
 
 
@@ -56,16 +56,6 @@ if ( class_exists( 'WP_Importer' ) ) {
 			echo '<h2>'.__('Import RSS', 'rss-importer').'</h2>';
 		} //end function header
 
-
-		function greeting(){
-			echo 'Choose a letter to import last names from EIS feed <br />';
-			echo '<select>';
-			foreach( range( 'A', 'Z' ) as $char ) {
-				echo '<option value="' . $char . '">' . $char . '</option>';
-			}
-			echo '</select>';
-		} //end function greeting
-
 		function footer() {
 			echo '</div>';
 		} //end function footer
@@ -75,16 +65,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 			global $wpdb;
 
 			if( !empty( $this->file ) ){
+
 				$index = 0;
 				
-				 foreach( $this->file->channel->item as $employee ){
-					$name = $employee->name;
-					$eis_link = $employee->link;
+				 foreach( $this->file as $employee ){
+					$name = $employee[name];
+					$eis_link = $employee[link];
 					
-					$emp[job_title] = (string)$employee->jobtitle;
-					$emp[email] = (string)$employee->mail;
-					$emp[phone] = (string)$employee->phone;
-					$emp[department] = (string)$employee->department;
+					$emp[job_title] = $employee[jobtitle];
+					$emp[email] = $employee[mail];
+					$emp[phone] = $employee[phone];
+					$emp[department] = $employee[department];
 
 					//split from last white space on to seperate f and l names
 					$full_name = preg_split( "/\s+(?=\S*+$)/", $name );
@@ -140,12 +131,9 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 
 		function import() {
-			#$feed = get_import_bios_xml_contents( 'https://apps.unthsc.edu/biofeed/api/values' );
-			$feed = get_import_bios_xml_contents( 'https://appsqa.unthsc.edu/biofeed/api/values?property=l_name&contains=A' );
-			$feed = preg_replace( '/&(?!#?[a-z0-9]+;)/', '&amp;', $feed );
-			$file = simplexml_load_string( $feed );
+			$feed = get_json_file();
 
-			$this->file = $file;
+			$this->file = $feed;
 			$this->get_posts();
 			$result = $this->import_posts();
 			if ( is_wp_error( $result ) )
@@ -160,9 +148,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 		function dispatch() {
 			$this->header();
 
-			$this->greeting();
-
-			$result = $this->import();
+			$this->import();
 
 			$this->footer();
 		} //end function dispatch
@@ -181,8 +167,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 
 function rss_importer_init() {
+	get_eis_rss_callback();
     load_plugin_textdomain( 'rss-importer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
-add_action( 'init', 'rss_importer_init' );
 
+#function wi_import_feed() {
+	add_action( 'init', 'rss_importer_init' );
+#}
+
+
+
+
+
+#add_action( 'wi_create_daily_backup', 'wi_import_feed' );
 ?>
