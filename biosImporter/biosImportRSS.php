@@ -3,9 +3,12 @@
 *
 * Plugin Name: importBios
 * Plugin URI:
-* Description: imports employee bios from EIS system in rss form
+* Description: Updates employee bios from EIS rss. Runs from a cron job. Pulls defined set of last names beginning with letter X - X each day. Can run manually through TOOLS > IMPORT > RSS
 * Version: 2
 * Author: Leta
+*
+* feed here https://appsqa.unthsc.edu/biofeed/api/values
+* feed can be searched by https://appsqa.unthsc.edu/biofeed/api/values?property=l_name&contains=N
 *
 ****************************************************************/
 include( plugin_dir_path( __FILE__ ) . 'additions.php');
@@ -76,6 +79,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$emp[email] = $employee[mail];
 					$emp[phone] = $employee[phone];
 					$emp[department] = $employee[department];
+					$emp[eis_image] = $employee[image];
 
 					//split from last white space on to seperate f and l names
 					$full_name = preg_split( "/\s+(?=\S*+$)/", $name );
@@ -171,13 +175,13 @@ function rss_importer_init() {
     load_plugin_textdomain( 'rss-importer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
-#function wi_import_feed() {
+function wi_import_feed() {
 	add_action( 'init', 'rss_importer_init' );
-#}
+}
 
 
 
 
 
-#add_action( 'wi_create_daily_backup', 'wi_import_feed' );
+add_action( 'wi_create_daily_backup', 'wi_import_feed' );
 ?>

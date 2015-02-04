@@ -157,6 +157,7 @@ function import_bios_into_database( $employee ){
 	update_post_meta( $post_id, '_cmbi_email', $employee[email] );
 	update_post_meta( $post_id, '_cmbi_fphone', $employee[phone] );
 	update_post_meta( $post_id, '_cmbi_department', $employee[department] );
+	update_post_meta( $post_id, 'eis_photo_link', $employee[eis_image] );
 	update_post_meta( $post_id, '_cmbi_eis', $employee[eis_num] );
 	return $post_id;
 } //end import bios into database
@@ -202,6 +203,10 @@ function change_existing_bios_in_database( $emp, $post_id ) {
 	if ( $curr[_cmbi_email][0] != $emp[email] ){
 		update_post_meta( $post_id, '_cmbi_email', $emp[email] );
 	}	
+	//eis image
+	if ( $curr[eis_photo_link][0] != $emp[eis_image] ){
+		update_post_meta( $post_id, 'eis_photo_link', $emp[eis_image] );
+	}
 } //end change_existing_bios_in_database
 
 
