@@ -69,7 +69,7 @@ function featured_bios_plugin_options_page() {
 					while($loop->have_posts()): $loop->the_post();
 						$post_id = get_the_id();
 						$featured_bio_switch = get_post_meta( $post_id, '_cmbi_featured', true );
-						if ( $featured_bio_switch == 'on' ) {
+						if ( $featured_bio_switch[0] == 'on' ) {
 							$lname = get_the_title();
 							$fname = get_post_meta( $post_id, '_cmbi_fname', true);
 							echo'<option value="'. $post_id .'">' . $lname . ', ' . $fname . '</option>';
