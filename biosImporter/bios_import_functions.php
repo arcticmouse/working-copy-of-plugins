@@ -121,7 +121,7 @@ function get_eis_rss_callback(){
 	$range = get_week_day_as_number();
 
 	foreach( $range as $char ){
-		$feed = get_import_bios_xml_contents( 'https://appsqa.unthsc.edu/biofeed/api/values?property=l_name&contains=' . $char );
+		$feed = get_import_bios_xml_contents( 'https://apps.unthsc.edu/biofeed/api/values?property=l_name&contains=' . $char );
 		$feed = preg_replace( '/&(?!#?[a-z0-9]+;)/', '&amp;', $feed );
 		$xml = simplexml_load_string( $feed );
 		$json = json_encode( $xml );

@@ -161,7 +161,7 @@ function create_post_type_bios() {
 		'menu_icon' => 'dashicons-admin-users',
 		'has_archive' => true,
 		'capability_type' => 'post',
-		'rewrite' => array('slug' => 'bios'),
+		'rewrite' => array( 'with_front' => false, 'slug' => 'bios'),
 		'menu_position' => 5,
 		'supports' => array('title', 'bios', 'bios_text', 'thumbnail', 'excerpt', 'custom-fields'),
 		'taxonomies' => array('emp_type', 'med_degree', 'language', 'specialty', 'insurance', 'location')
