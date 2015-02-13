@@ -11,7 +11,7 @@
 * feed can be searched by https://appsqa.unthsc.edu/biofeed/api/values?property=l_name&contains=N
 *
 ****************************************************************/
-include( plugin_dir_path( __FILE__ ) . 'additions.php');
+#include( plugin_dir_path( __FILE__ ) . 'additions.php');
 include( 'bios_import_functions.php' );
 
 if ( !defined('WP_LOAD_IMPORTERS') )
