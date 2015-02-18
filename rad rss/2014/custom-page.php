@@ -21,8 +21,8 @@ Author: Leta
                     do_action ('__before_loop');##hooks the header of the list of post : archive, search... 
                     get_search_form();
                     wp_list_categories('exclude=1&orderby=name&title_li='); 
-					do_action ('__after_loop');##hook of the comments and the posts navigation with priorities 10 and 20 
-					?>
+                    do_action ('__after_loop');##hook of the comments and the posts navigation with priorities 10 and 20 
+                    ?>
 
                 </div><!--.article-container -->
 
